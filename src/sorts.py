@@ -100,3 +100,24 @@ class MultiSorter:
             result.extend(bucket)
 
         return result
+
+    def count_sort(self, arr):
+        if not arr:
+            return arr.copy()
+        if any(x < 0 for x in arr):
+            raise ValueError("Сортировка подсчетом принимает только неотрицательные целые числа")
+        max_val = max(arr)
+        count = [0] * (max_val + 1)
+        for num in arr:
+            count[num] += 1
+        result = []
+        for value in range(len(count)):
+            result.extend([value] * count[value])
+        return result
+
+sorter = MultiSorter()
+print(sorter.bubble_sort([3,1,52,7,9]))
+print(sorter.quick_sort([3,4,52,7,2]))
+print(sorter.radix_sort([6,4,52,7,9]))
+print(sorter.bucket_sort([3,4,0,7,9]))
+print(sorter.count_sort([3,4,2,7,9]))
