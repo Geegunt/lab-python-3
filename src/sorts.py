@@ -2,11 +2,13 @@ class MultiSorter:
     '''
     Класс реализующий алгоритмы сортировки
     '''
-    def bubble_sort(self, arr):
-        if not arr:
-            return arr
-        n = len(arr)
-        result = arr.copy()
+    def __init__(self, arr):
+        self.arr = arr
+    def bubble_sort(self):
+        if not self.arr:
+            return self.arr
+        n = len(self.arr)
+        result = self.arr.copy()
         for i in range(n):
             swapped = False
             for j in range(0, n - i - 1):
@@ -18,7 +20,10 @@ class MultiSorter:
 
         return result
 
-    def quick_sort(self, arr):
+    def quick_sort(self, arr=None):
+        if arr is None:
+            arr = self.arr
+
         if len(arr) <= 1:
             return arr.copy()
 
@@ -34,16 +39,17 @@ class MultiSorter:
                 middle.append(x)
             else:
                 right.append(x)
+
         return self.quick_sort(left) + middle + self.quick_sort(right)
 
-    def radix_sort(self, arr):
-        if not arr:
-            return arr.copy()
+    def radix_sort(self):
+        if not self.arr:
+            return self.arr.copy()
 
-        if any(x < 0 for x in arr):
+        if any(x < 0 for x in self.arr):
             raise ValueError("Radix sort принимает только неотрицательные целые числа")
 
-        result = arr.copy()
+        result = self.arr.copy()
         max_num = max(result)
         exp = 1
         while max_num // exp > 0:
@@ -61,28 +67,28 @@ class MultiSorter:
 
         return result
 
-    def bucket_sort(self, arr):
-        if not arr:
-            return arr.copy()
+    def bucket_sort(self):
+        if not self.arr:
+            return self.arr.copy()
 
-        n = len(arr)
+        n = len(self.arr)
         if n <= 1:
-            return arr.copy()
+            return self.arr.copy()
 
         bucket_count = max(1, n // 2)
         buckets = [[] for _ in range(bucket_count)]
 
-        min_val = arr[0]
-        max_val = arr[0]
-        for num in arr:
+        min_val = self.arr[0]
+        max_val = self.arr[0]
+        for num in self.arr:
             if num > max_val:
                 max_val = num
             if num < min_val:
                 min_val = num
 
         if min_val == max_val:
-            return arr.copy()
-        for num in arr:
+            return self.arr.copy()
+        for num in self.arr:
             index = int((num - min_val) / (max_val - min_val) * (bucket_count - 1))
             buckets[index].append(num)
 
@@ -101,23 +107,23 @@ class MultiSorter:
 
         return result
 
-    def count_sort(self, arr):
-        if not arr:
-            return arr.copy()
-        if any(x < 0 for x in arr):
+    def count_sort(self):
+        if not self.arr:
+            return self.arr.copy()
+        if any(x < 0 for x in self.arr):
             raise ValueError("Сортировка подсчетом принимает только неотрицательные целые числа")
-        max_val = max(arr)
+        max_val = max(self.arr)
         count = [0] * (max_val + 1)
-        for num in arr:
+        for num in self.arr:
             count[num] += 1
         result = []
         for value in range(len(count)):
             result.extend([value] * count[value])
         return result
 
-sorter = MultiSorter()
-print(sorter.bubble_sort([3,1,52,7,9]))
-print(sorter.quick_sort([3,4,52,7,2]))
-print(sorter.radix_sort([6,4,52,7,9]))
-print(sorter.bucket_sort([3,4,0,7,9]))
-print(sorter.count_sort([3,4,2,7,9]))
+sorter = MultiSorter([3,1,2,7,9])
+print(sorter.bucket_sort())
+print(sorter.count_sort())
+print(sorter.bubble_sort())
+print(sorter.radix_sort())
+print(sorter.quick_sort())

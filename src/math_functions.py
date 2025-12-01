@@ -25,7 +25,7 @@ def fib_default(n: int) -> int:
     x0 = 1
     x1 = 1
     x2 = 0
-    for i in range(2, a):
+    for i in range(2, n):
         x2 = x1 + x0
         x0 = x1
         x1 = x2
