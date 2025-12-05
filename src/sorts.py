@@ -1,12 +1,13 @@
 class MultiSorter:
-    '''
+    """
     Класс реализующий алгоритмы сортировки
-    '''
+    """
+
     def __init__(self, arr, key=None, reverse=False):
         self.arr = arr
         self.key = key
         self.reverse = reverse
-    
+
     def _compare(self, a, b):
         if self.key:
             a_key = self.key(a)
@@ -14,11 +15,11 @@ class MultiSorter:
         else:
             a_key = a
             b_key = b
-        
+
         if self.reverse:
             return a_key < b_key
         return a_key > b_key
-    
+
     def bubble_sort(self):
         if not self.arr:
             return self.arr
@@ -62,7 +63,9 @@ class MultiSorter:
             return self.arr.copy()
 
         if self.key:
-            raise ValueError("Radix sort не поддерживает произвольные ключи, только неотрицательные целые числа")
+            raise ValueError(
+                "Radix sort не поддерживает произвольные ключи, только неотрицательные целые числа"
+            )
 
         if any(x < 0 for x in self.arr):
             raise ValueError("Radix sort принимает только неотрицательные целые числа")
@@ -132,12 +135,16 @@ class MultiSorter:
     def count_sort(self):
         if not self.arr:
             return self.arr.copy()
-        
+
         if self.key:
-            raise ValueError("Count sort не поддерживает произвольные ключи, только неотрицательные целые числа")
-        
+            raise ValueError(
+                "Count sort не поддерживает произвольные ключи, только неотрицательные целые числа"
+            )
+
         if any(x < 0 for x in self.arr):
-            raise ValueError("Сортировка подсчетом принимает только неотрицательные целые числа")
+            raise ValueError(
+                "Сортировка подсчетом принимает только неотрицательные целые числа"
+            )
         max_val = max(self.arr)
         count = [0] * (max_val + 1)
         for num in self.arr:
@@ -147,6 +154,7 @@ class MultiSorter:
             result.extend([value] * count[value])
         return result
 
+
 class EnhancedMultiSorter(MultiSorter):
     def __init__(self, arr, key=None, reverse=False, comparator=None, keys=None):
         super().__init__(arr, key=key, reverse=reverse)
@@ -155,12 +163,12 @@ class EnhancedMultiSorter(MultiSorter):
             self.keys = keys if isinstance(keys, list) else [keys]
         else:
             self.keys = []
-    
+
     def _compare(self, a, b):
         if self.comparator:
             result = self.comparator(a, b)
             return not result if self.reverse else result
-        
+
         if self.keys:
             for key in self.keys:
                 a_key = key(a) if key else a
@@ -170,5 +178,5 @@ class EnhancedMultiSorter(MultiSorter):
                 elif a_key > b_key:
                     return False if self.reverse else True
             return False
-        
+
         return super()._compare(a, b)

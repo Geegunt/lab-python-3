@@ -65,6 +65,7 @@ class Queue:
             raise IndexError("очередь пуста")
         return self.data[self.head]
 
+
 my_stack = Stack(5)
 my_stack.push(3)
 my_stack.push(4)
@@ -72,9 +73,3 @@ my_stack.push(5)
 my_stack.push(6)
 my_stack.push(7)
 print(my_stack.pop())
-
-
-
-
-
-

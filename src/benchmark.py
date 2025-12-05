@@ -1,28 +1,32 @@
 import time
-from test_generators import rand_int_array, nearly_sorted, many_duplicates
+
 from src.sorts import MultiSorter
+from src.test_generators import many_duplicates, nearly_sorted, rand_int_array
+
 
 def timeit_once(func, *args, **kwargs) -> float:
-    '''
+    """
     Замеряет время выполнения функции один раз
     :param func:
     :param args:
     :param kwargs:
     :return:
-    '''
+    """
     start_time = time.time()
     func(*args, **kwargs)
     end_time = time.time()
     return end_time - start_time
 
 
-def benchmark_sorts(arrays:  dict[str, list], algos: dict[str, callable]) -> dict[str, dict[str, float]]:
-    '''
+def benchmark_sorts(
+    arrays: dict[str, list], algos: dict[str, callable]
+) -> dict[str, dict[str, float]]:
+    """
     Бенчмарк сортировок на разных массивах
     :param arrays:
     :param algos:
     :return:
-    '''
+    """
     results = {}
 
     for array_name, array in arrays.items():
@@ -35,22 +39,24 @@ def benchmark_sorts(arrays:  dict[str, list], algos: dict[str, callable]) -> dic
 
     return results
 
+
 def print_benchmark_results(results: dict[str, dict[str, float]]):
-    '''
+    """
     Красиво выводит результаты бенчмарка
     :param results:
     :return:
-    '''
+    """
     print("результаты бенчмарка")
 
     for array_name, timings in results.items():
         print(f"\n {array_name}:")
         sorted_timings = sorted(timings.items(), key=lambda x: x[1])
         for algo_name, exec_time in sorted_timings:
-            print(f" {algo_name:20s}: {exec_time*1000:8.4f} мс")
+            print(f" {algo_name:20s}: {exec_time * 1000:8.4f} мс")
 
 
 if __name__ == "__main__":
+
     def python_sort(arr):
         arr.sort()
         return arr

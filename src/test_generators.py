@@ -1,7 +1,15 @@
 import random
 
-def rand_int_array(array_size: int, minimum_value: int, maximum_value: int, *, distinct=False, seed=None) -> list[int]:
-    '''
+
+def rand_int_array(
+    array_size: int,
+    minimum_value: int,
+    maximum_value: int,
+    *,
+    distinct=False,
+    seed=None,
+) -> list[int]:
+    """
     Генерирует массив случайных чисел
     :param array_size:
     :param minimum_value:
@@ -9,7 +17,7 @@ def rand_int_array(array_size: int, minimum_value: int, maximum_value: int, *, d
     :param distinct:
     :param seed:
     :return:
-    '''
+    """
     if seed is not None:
         random.seed(seed)
 
@@ -28,14 +36,15 @@ def rand_int_array(array_size: int, minimum_value: int, maximum_value: int, *, d
 
     return random_numbers
 
+
 def nearly_sorted(array_size: int, number_of_swaps: int, *, seed=None) -> list[int]:
-    '''
+    """
     Генерирует почти отсортированный массив
     :param array_size:
     :param number_of_swaps:
     :param seed:
     :return:
-    '''
+    """
     if seed is not None:
         random.seed(seed)
 
@@ -52,14 +61,15 @@ def nearly_sorted(array_size: int, number_of_swaps: int, *, seed=None) -> list[i
 
     return sorted_array
 
+
 def many_duplicates(array_size: int, unique_values_count=5, *, seed=None) -> list[int]:
-    '''
+    """
     Генерирует массив с большим кол-вом дубликатов
     :param array_size:
     :param uniaue_values_count:
     :param seed:
     :return:
-    '''
+    """
     if seed is not None:
         random.seed(seed)
 
@@ -70,13 +80,13 @@ def many_duplicates(array_size: int, unique_values_count=5, *, seed=None) -> lis
 
     return array_with_duplicates
 
+
 def reverse_sorted(array_size: int) -> list[int]:
-    '''
+    """
     Генерирует массив в обратном порядке
-    '''
+    """
     reverse_ordered_array = []
     for current_value in range(array_size - 1, -1, -1):
         reverse_ordered_array.append(current_value)
 
     return reverse_ordered_array
-
