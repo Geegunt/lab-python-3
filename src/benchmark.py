@@ -51,16 +51,6 @@ def print_benchmark_results(results: dict[str, dict[str, float]]):
 
 
 if __name__ == "__main__":
-
-    def bubble_sort_simple(arr):
-        n = len(arr)
-        for i in range(n):
-            for j in range(0, n - i - 1):
-                if arr[j] > arr[j + 1]:
-                    arr[j], arr[j + 1] = arr[j + 1], arr[j]
-        return arr
-
-
     def python_sort(arr):
         arr.sort()
         return arr
@@ -92,7 +82,6 @@ if __name__ == "__main__":
     }
 
     algorithms = {
-        "Bubble Sort": bubble_sort_simple,
         "Python Sort": python_sort,
         "MultiSorter Bubble": multisorter_bubble,
         "MultiSorter Quick": multisorter_quick,
