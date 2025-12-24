@@ -52,6 +52,9 @@ class SortingCLI:
     def sort_count(self, *args):
         self.benchmark_sort("Count Sort", lambda arr: MultiSorter(arr).count_sort())
 
+    def sort_heap(self, *args):
+        self.benchmark_sort("Heap Sort", lambda arr: MultiSorter(arr).heap_sort())
+
     def sort_all(self, *args):
         print(f"\nСравнение всех алгоритмов (размер: {self.test_size})")
 
@@ -63,6 +66,7 @@ class SortingCLI:
             "Radix Sort": lambda a: MultiSorter(a).radix_sort(),
             "Bucket Sort": lambda a: MultiSorter(a).bucket_sort(),
             "Count Sort": lambda a: MultiSorter(a).count_sort(),
+            "Heap Sort": lambda a: MultiSorter(a).heap_sort(),
             "Python Sort": lambda a: sorted(a),
         }
 
@@ -275,6 +279,7 @@ class SortingCLI:
             "Radix Sort": lambda arr: MultiSorter(arr).radix_sort(),
             "Bucket Sort": lambda arr: MultiSorter(arr).bucket_sort(),
             "Count Sort": lambda arr: MultiSorter(arr).count_sort(),
+            "Heap Sort": lambda arr: MultiSorter(arr).heap_sort(),
         }
 
         results = benchmark_sorts(test_arrays, algorithms)
@@ -283,7 +288,7 @@ class SortingCLI:
 
     def show_help(self, *args):
         print("\nКоманды:")
-        print("SortBubble, SortQuick, SortRadix, SortBucket, SortCount")
+        print("SortBubble, SortQuick, SortRadix, SortBucket, SortCount, SortHeap")
         print("SortAll - сравнить все алгоритмы")
         print("SetSize <N> - установить размер массива")
         print(
@@ -308,6 +313,7 @@ class SortingCLI:
             "sortradix": self.sort_radix,
             "sortbucket": self.sort_bucket,
             "sortcount": self.sort_count,
+            "sortheap": self.sort_heap,
             "sortall": self.sort_all,
             "setsize": self.set_size,
             "stackcreate": self.stack_create,

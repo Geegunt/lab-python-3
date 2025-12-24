@@ -81,6 +81,10 @@ if __name__ == "__main__":
         sorter = MultiSorter(arr)
         return sorter.count_sort()
 
+    def multisorter_heap(arr):
+        sorter = MultiSorter(arr)
+        return sorter.heap_sort()
+
     test_arrays = {
         "Случайный (1000)": rand_int_array(1000, 1, 1000),
         "Почти отсортированный (1000)": nearly_sorted(1000, 10),
@@ -94,6 +98,7 @@ if __name__ == "__main__":
         "MultiSorter Radix": multisorter_radix,
         "MultiSorter Bucket": multisorter_bucket,
         "MultiSorter Count": multisorter_count,
+        "MultiSorter Heap": multisorter_heap,
     }
 
     results = benchmark_sorts(test_arrays, algorithms)

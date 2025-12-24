@@ -105,10 +105,8 @@ class MultiSorter:
             num_key = self.key(num) if self.key else num
             if num_key > max_val:
                 max_val = num_key
-                max_val_original = num
             if num_key < min_val:
                 min_val = num_key
-                min_val_original = num
 
         if min_val == max_val:
             return self.arr.copy()
@@ -152,6 +150,48 @@ class MultiSorter:
         result = []
         for value in range(len(count)):
             result.extend([value] * count[value])
+        return result
+
+    def heap_sort(self):
+        if not self.arr:
+            return self.arr.copy()
+
+        result = self.arr.copy()
+        n = len(result)
+
+        def get_key(item):
+            if hasattr(self, 'keys') and self.keys:
+                return self.keys[0](item) if self.keys[0] else item
+            return self.key(item) if self.key else item
+
+        def heapify(arr, n, i):
+            largest = i
+            left = 2 * i + 1
+            right = 2 * i + 2
+
+            if left < n:
+                left_key = get_key(arr[left])
+                largest_key = get_key(arr[largest])
+                if (not self.reverse and left_key > largest_key) or (self.reverse and left_key < largest_key):
+                    largest = left
+
+            if right < n:
+                right_key = get_key(arr[right])
+                largest_key = get_key(arr[largest])
+                if (not self.reverse and right_key > largest_key) or (self.reverse and right_key < largest_key):
+                    largest = right
+
+            if largest != i:
+                arr[i], arr[largest] = arr[largest], arr[i]
+                heapify(arr, n, largest)
+
+        for i in range(n // 2 - 1, -1, -1):
+            heapify(result, n, i)
+
+        for i in range(n - 1, 0, -1):
+            result[0], result[i] = result[i], result[0]
+            heapify(result, i, 0)
+
         return result
 
 
